@@ -2,8 +2,8 @@
 
 import hashlib
 import sys
-import requests
 import yaml
+from security import safe_requests
 
 REPO = "KRTirtho/spotube"
 YAML_FILENAME = "com.github.KRTirtho.Spotube.yml"
@@ -19,7 +19,7 @@ version = sys.argv[1:][0]
 tar_url = f"https://github.com/{REPO}/releases/download/v{version}/spotube-linux-{version}-x86_64.tar.xz"
 tar_sha256 = hashlib.sha256()
 print(f"Downloading file {tar_url} to generete sha256 sum")
-tar = requests.get(tar_url)
+tar = safe_requests.get(tar_url)
 for chunk in tar.iter_content():
     if chunk:
         tar_sha256.update(chunk)
